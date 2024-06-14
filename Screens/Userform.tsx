@@ -38,7 +38,16 @@ const UserForm = ({ navigation }: any) => {
           <ImageBackground source={require('../assets/dummyImage.jpeg')} style={{ height: Dimensions.get('window').height / 2.5 }}></ImageBackground>
           <View style={{ flex: 1.5, backgroundColor: '#fdd017', bottom: 100, borderTopStartRadius: 60, borderTopEndRadius: 60 }}>
             <View style={{ padding: 50 }}>
+              
               <Text style={{ color: '#3559E0', fontSize: 30, padding: 10 }}>Welcome !!!</Text>
+              <View style={{ flexDirection: 'row',
+    alignItems: 'center'}}>
+              <Text style={{ color: '#3559E0', fontSize: 15, padding: 10 }}>Dont have an account?</Text>
+              
+              <TouchableOpacity onPress={() => navigation.navigate('Registration')}>
+                  <Text style={{fontSize:20, color:"red" }}>Register Now</Text>
+                </TouchableOpacity>
+                </View>
               <View style={{ marginTop: '10%' }}>
                 <TextInput
                   style={{ borderWidth: 1, padding: 5, borderRadius: 5 }}
@@ -82,7 +91,7 @@ const UserForm = ({ navigation }: any) => {
 
               </View>
               <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 }}>
-                <TouchableOpacity onPress={() => navigation.navigate('passwordReset')}>
+                <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
                   <Text>Forgot your Password?</Text>
                 </TouchableOpacity>
               </View>

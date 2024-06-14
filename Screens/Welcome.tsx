@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import Swiper from 'react-native-swiper';
+import UserForm from './Userform';
 
-const Welcome: React.FC = () => {
+const Welcome: React.FC = ({ navigation }: any) => {
   return (
     <Swiper style={styles.wrapper} showsButtons loop>
       <View style={styles.slide}>
@@ -15,8 +16,12 @@ const Welcome: React.FC = () => {
       </View>
       <View style={styles.slide}>
         <Image source={require('../assets/image3.jpg')} style={styles.image} />
-        <Text style={styles.text}>Stay Connected</Text>
+        {/* <Text style={styles.text}>Stay Connected</Text> */}
+        <TouchableOpacity onPress={() => navigation.navigate('Userform')}>
+                  <Text style={{fontSize:20, color:"red" }}>Get Started</Text>
+                </TouchableOpacity>
       </View>
+      
     </Swiper>
   );
 };
