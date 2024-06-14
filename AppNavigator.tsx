@@ -27,24 +27,24 @@ const Stack = createStackNavigator();
 const AppNavigator = () => {
   return (
     <Stack.Navigator >
-      {/* <Stack.Screen name="AboutUs" component={AboutUs} />
+      <Stack.Screen name="AboutUs" component={AboutUs} />
       <Stack.Screen name="Services" component={Services} />
       <Stack.Screen name="Accept" component={Accept} />
-      <Stack.Screen name="Billgen" component={Billgen} /> */}
-      {/* <Stack.Screen name="Client" component={Client} /> */}
-      {/* <Stack.Screen name="Company" component={Company} /> */}
-      {/* <Stack.Screen name="Driver" component={Driver} /> */}
-      {/* <Stack.Screen name="ForgotPassword" component={ForgotPassword} /> */}
-      {/* <Stack.Screen name="ForgotPasswordOtpVerify" component={ForgotPasswordOtpVerify} /> */}
-      {/* <Stack.Screen name="Homepage" component={HomePage} /> */}
-      {/* <Stack.Screen name="KYC" component={Kyc} /> */}
-      {/* <Stack.Screen name="OngoinDeals" component={OngoingDeals} /> */}
+      <Stack.Screen name="Billgen" component={Billgen} />
+      <Stack.Screen name="Client" component={Client} />
+      <Stack.Screen name="Company" component={Company} />
+      <Stack.Screen name="Driver" component={Driver} />
+      <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+      <Stack.Screen name="ForgotPasswordOtpVerify" component={ForgotPasswordOtpVerify} />
+      <Stack.Screen name="Homepage" component={HomePage} />
+      <Stack.Screen name="KYC" component={Kyc} />
+      <Stack.Screen name="OngoinDeals" component={OngoingDeals} />
       <Stack.Screen name="Payment" component={Payment} />
-      {/* <Stack.Screen name="Registration" component={Registration} /> */}
-      {/* <Stack.Screen name="UpdateFreight" component={UpdateFreight} /> */}
-      {/* <Stack.Screen name="Userform" component={UserForm} /> */}
-      {/* <Stack.Screen name="Wallet" component={Wallet} /> */}
-      {/* <Stack.Screen name="Welcome" component={Welcome} /> */}
+      <Stack.Screen name="Registration" component={Registration} />
+      <Stack.Screen name="UpdateFreight" component={UpdateFreight} />
+      <Stack.Screen name="Userform" component={UserForm} />
+      <Stack.Screen name="Wallet" component={Wallet} />
+      <Stack.Screen name="Welcome" component={Welcome} />
       
       
     </Stack.Navigator>
