@@ -5,7 +5,9 @@ interface HomePage1Props {
   navigation: any;
 }
 
-const HomePage1: React.FC<HomePage1Props> = ({ navigation }) => {
+const HomePage1: React.FC<HomePage1Props> = ({ navigation,route }:any) => {
+  const {phone}=route.params;
+  console.log(phone)
   return (
     <ScrollView>
       <View style={{ flex: 1 }}>
@@ -87,11 +89,11 @@ const HomePage1: React.FC<HomePage1Props> = ({ navigation }) => {
               </TouchableOpacity>
             </View>
 
-            <View style={{ justifyContent: "center", alignItems: "center", padding: 15 }}>
-              <Text style={{ fontSize: 35, fontWeight: "bold", color: "#FFB000", fontStyle: "italic" }}>
+            <View style={{ justifyContent: "center", alignItems: "center", padding: 30 }}>
+              <Text style={{ fontSize: 35, fontWeight: "bold", color: "#FFB000", fontStyle: "italic",padding:10 }}>
                 Welcome to
               </Text>
-              <Text style={{ fontSize: 35, fontWeight: "bold", color: "#FFB000", fontStyle: "italic" }}>
+              <Text style={{ fontSize: 32, fontWeight: "900", color: "#FFB000", fontStyle: "italic",padding:10 }}>
                 TEAM BHARIYA
               </Text>
             </View>
@@ -105,8 +107,9 @@ const HomePage1: React.FC<HomePage1Props> = ({ navigation }) => {
                 Always at Your Service
               </Text>
               <Text style={{ fontWeight: "bold", fontSize: 20, color: "#FFB000" }}>
-                "Team Bhariya is providing the best services all around Nepal with fair prices, superior quality, and exceptional customer service are guaranteed when you work with us."
+              Team Bhariya is providing the best cargo services all around Nepal with fair prices, fast delivery, and exceptional customer service are guaranteed.
               </Text>
+              <View style={{ justifyContent: "space-around", alignItems: "center", alignContent: "space-between",padding:30 }}>
               <TouchableOpacity
                 style={{
                   backgroundColor: "#5bc0de",
@@ -115,12 +118,13 @@ const HomePage1: React.FC<HomePage1Props> = ({ navigation }) => {
                   borderRadius: 20,
                   marginTop: 20,
                 }}
-                onPress={() => navigation.navigate("ClientPage")}
+                onPress={() => navigation.navigate("Client",{phone:phone})}
               >
                 <Text style={{ color: "white", fontWeight: "bold", fontSize: 20 }}>
                   Make Request
                 </Text>
               </TouchableOpacity>
+              </View>
             </View>
           </View>
         </ImageBackground>

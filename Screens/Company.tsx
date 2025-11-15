@@ -1,6 +1,6 @@
 import React from 'react';
-import { Alert, Dimensions, ImageBackground, TextInput, View, ScrollView } from 'react-native';
-import { Button, Text } from 'react-native-paper';
+import { Alert, Dimensions, ImageBackground, TextInput, View, ScrollView,Button } from 'react-native';
+import {  Text } from 'react-native-paper';
 import axios from 'axios';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -12,28 +12,48 @@ interface CompanyProps {
 }
 
 const Company: React.FC<CompanyProps> = ({ navigation, route }: CompanyProps) => {
-  const phone = route.params.paramKey;
+  // const phone = route.params.paramKey;
+
+  const phone = 9876543213
 
   return (
     <Formik
       initialValues={{
-        Company: '',
+        company: '',
       }}
       validationSchema={Yup.object({
-        Company: Yup.string().required('Company name is required'),
+        company: Yup.string().required('Company name is required'),
       })}
       onSubmit={async (values) => {
+
+        
+       
         try {
-          await axios.put(`http://192.168.1.80:8000/ClientCompany/` + phone, { company: values.Company });
-          // Uncomment this if navigation is needed after submission
-          // navigation.navigate("ClientRequest", {
-          //   paramKey: values,
-          //   phone,
-          // });
-        } catch (error: any) {
-          console.error("Error:", (error as Error).message);
-          Alert.alert("An error occurred while submitting the company name.");
+        
+        
+          axios.put("http://192.168.1.169:8000/ClientCompany/" + phone,values).then((response:any)=>{console.log(response)})
+      }  catch (error:any) {
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          // The request was made but no response was received
+          // error.request is an instance of XMLHttpRequest in the browser and an instance of
+          // http.ClientRequest in node.js
+          console.log(error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log("Error", error.message);
         }
+        console.log(error.config),
+          Alert.alert(JSON.stringify(error.response.data.message));
+      
+      }
+  
+      
       }}
       
     >
@@ -43,25 +63,25 @@ const Company: React.FC<CompanyProps> = ({ navigation, route }: CompanyProps) =>
             <View style={{ padding: 20, justifyContent: 'center', alignItems: 'center' }}>
               <View style={{ marginBottom: 20 }}>
                 <Text style={{ color: '#fdd017', fontSize: 22, padding: 10, fontWeight: 'bold' }}>
-                  Enter your company name!
+                  Enter your company name! 
                 </Text>
                 <View>
                   <TextInput
                     style={{ borderWidth: 1, padding: 5, borderRadius: 15, backgroundColor: '#94e9de' }}
-                    placeholder='Company'
-                    onChangeText={handleChange('Company')}
-                    onBlur={handleBlur('Company')}
-                    value={values.Company}
+                    placeholder='company or personal name'
+                    onChangeText={handleChange('company')}
+                    onBlur={handleBlur('company')}
+                    value={values.company}
                   />
                   
                   <Button
-                    mode="contained"
-                    style={{ borderRadius: 20, backgroundColor: '#FFB000', marginTop: 10 }}
-                    onPress={(e: GestureResponderEvent) => handleSubmit()}
-                    disabled={!isValid}
-                  >
-                    SUBMIT
-                  </Button>
+                  
+            title="Submit"
+            onPress={() => handleSubmit()}
+            disabled={!isValid}
+          />
+                    
+                 
                 </View>
               </View>
             </View>

@@ -14,16 +14,16 @@ const UserForm = ({ navigation }: any) => {
       })}
       onSubmit={async (values) => {
         try {
-          const response = await axios.post('http:192.168.1.74:8000/users/login', values);
+          const response = await axios.post('http:192.168.0.144:8000/users/login', values);
           console.log(response.data);
           const token = response.data.token;
           const role = response.data.user.roles;
-          const phone = response.data.user.phoneNumber;
-          console.log(phone);
+          const phoneLine = response.data.user.phoneNumber;
+          console.log(phoneLine);
           if (role === 'Driver') {
-            navigation.navigate('Dashboard1', { paramKey: phone });
+            navigation.navigate('Homepage', {  phone:phoneLine });
           } else {
-            navigation.navigate('Dashboard2', { paramKey: phone });
+            navigation.navigate('Homepage1', {  phone:phoneLine });
           }
         } catch (error: any) {
           console.log('Error', error.message);
@@ -38,21 +38,22 @@ const UserForm = ({ navigation }: any) => {
           <ImageBackground source={require('../assets/dummyImage.jpeg')} style={{ height: Dimensions.get('window').height / 2.5 }}></ImageBackground>
           <View style={{ flex: 1.5, backgroundColor: '#fdd017', bottom: 100, borderTopStartRadius: 60, borderTopEndRadius: 60 }}>
             <View style={{ padding: 50 }}>
-              
-              <Text style={{ color: '#3559E0', fontSize: 30, padding: 10 }}>Welcome !!!</Text>
+              <View style={{justifyContent:"center",alignItems:"center"}}>
+              <Text style={{ color: '#3559E0', fontSize: 30, padding: 10}}>Welcome !!!</Text>
+              </View>
               <View style={{ flexDirection: 'row',
     alignItems: 'center'}}>
-              <Text style={{ color: '#3559E0', fontSize: 15, padding: 10 }}>Dont have an account?</Text>
+              <Text style={{ color: '#3559E0', fontSize: 15, padding: 10 }}>Don't have an account?</Text>
               
               <TouchableOpacity onPress={() => navigation.navigate('Registration')}>
-                  <Text style={{fontSize:20, color:"red" }}>Register Now</Text>
+                  <Text style={{fontSize:15, color:"red" }}>Register Now</Text>
                 </TouchableOpacity>
                 </View>
-              <View style={{ marginTop: '10%' }}>
+              <View style={{ marginTop: '10%',gap:10 }}>
                 <TextInput
                   style={{ borderWidth: 1, padding: 5, borderRadius: 5 }}
                 
-                  placeholder="Login userId or Email Address"
+                  placeholder=" Email Address"
                   onChangeText={handleChange('email')}
                   onBlur={handleBlur('email')}
                   value={values.email}
@@ -70,7 +71,8 @@ const UserForm = ({ navigation }: any) => {
                 />
                 {errors.password && <Text style={{ fontSize: 10, color: 'red' }}>{errors.password}</Text>}
                 <Button
-  title="Submit"
+                 color={"#5bc0de"}
+  title="Login"
   onPress={(event) => {
     const syntheticEvent: any = {
         currentTarget: null,

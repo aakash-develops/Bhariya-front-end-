@@ -39,7 +39,7 @@ const HomePage: React.FC<HomePageProps> = ({ navigation }) => {
                   borderRadius: 20,
                   marginRight: 10,
                 }}
-                onPress={() => navigation.navigate("Dashboard")}
+                onPress={() => navigation.navigate("Homepage")}
               >
                 <Text style={{ color: "white", fontWeight: "bold" }}>
                   Home
@@ -58,7 +58,7 @@ const HomePage: React.FC<HomePageProps> = ({ navigation }) => {
                   Services
                 </Text>
               </TouchableOpacity>
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 style={{
                   backgroundColor: "#5bc0de",
                   padding: 10,
@@ -69,7 +69,7 @@ const HomePage: React.FC<HomePageProps> = ({ navigation }) => {
                 <Text style={{ color: "white", fontWeight: "bold" }}>
                   Location
                 </Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
               <TouchableOpacity
                 style={{
                   backgroundColor: "#5bc0de",
@@ -89,7 +89,7 @@ const HomePage: React.FC<HomePageProps> = ({ navigation }) => {
                   padding: 10,
                   borderRadius: 20,
                 }}
-                onPress={() => navigation.navigate("Wallet")}
+                onPress={() => navigation.navigate("wallet")}
               >
                 <Text style={{ color: "white", fontWeight: "bold" }}>
                   Wallet
@@ -97,11 +97,11 @@ const HomePage: React.FC<HomePageProps> = ({ navigation }) => {
               </TouchableOpacity>
             </View>
 
-            <View style={{ justifyContent: "center", alignItems: "center", padding: 15 }}>
-              <Text style={{ fontSize: 35, fontWeight: "bold", color: "#FFB000", fontStyle: "italic" }}>
+            <View style={{ justifyContent: "center", alignItems: "center", padding: 30 }}>
+              <Text style={{ fontSize: 35, fontWeight: "bold", color: "#FFB000", fontStyle: "italic",padding:10 }}>
                 Welcome to
               </Text>
-              <Text style={{ fontSize: 35, fontWeight: "bold", color: "#FFB000", fontStyle: "italic" }}>
+              <Text style={{ fontSize: 32, fontWeight: "900", color: "#FFB000", fontStyle: "italic",padding:10 }}>
                 TEAM BHARIYA
               </Text>
             </View>
@@ -112,11 +112,11 @@ const HomePage: React.FC<HomePageProps> = ({ navigation }) => {
                 Always at Your Service
               </Text>
               <Text style={{ fontWeight: "bold", fontSize: 20, color: "#FFB000" }}>
-                Team Bhariya is providing the best services all around Nepal with fair prices, superior quality, and exceptional customer service are guaranteed when you work with us.
+                Team Bhariya is providing the best cargo services all around Nepal with fair prices, fast delivery, and exceptional customer service are guaranteed.
               </Text>
             </View>
 
-            <View style={{ justifyContent: "space-around", alignItems: "center", alignContent: "space-between" }}>
+            <View style={{ justifyContent: "space-around", alignItems: "center", alignContent: "space-between",padding:30 }}>
               <TouchableOpacity
                 style={{
                   backgroundColor: "#5bc0de",

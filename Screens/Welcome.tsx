@@ -7,7 +7,7 @@ const Welcome: React.FC = ({ navigation }: any) => {
   return (
     <Swiper style={styles.wrapper} showsButtons loop>
       <View style={styles.slide}>
-        <Image source={require('../assets/image1.jpg')} style={styles.image} />
+        <Image source={require('../assets/welcome.jpg')} style={styles.image} />
         <Text style={styles.text}>Welcome to our App</Text>
       </View>
       <View style={styles.slide}>

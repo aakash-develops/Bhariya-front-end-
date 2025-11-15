@@ -1,16 +1,20 @@
 import React from 'react';
-import { Text, TextInput, Button, View, Alert } from 'react-native';
+import { Text, TextInput, Button, View, Alert, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import axios from 'axios';
 import * as Yup from 'yup';
+import { ImageBackground } from 'react-native';
 
 const UpdateFreight = ({ route, navigation }: any) => {
   const phoneId: string = route.params.paramKey;
   const [price, setPrice] = React.useState<string>('');
 
   return (
-    <SafeAreaView style={{ backgroundColor: '#FFB000', flex: 1 }}>
-      <View style={{ paddingHorizontal: 20, paddingTop: 20 }}>
+    <SafeAreaView style={{backgroundColor:"#EF4136", flex: 1, alignContent: "center" }} >
+      <ImageBackground
+            source={require("../assets/background.jpeg")}
+            style={{ height: Dimensions.get("window").height }}>
+      {/* <View style={{ paddingHorizontal: 20, paddingTop: 20 }}> */}
         <TextInput
           style={{
             padding: 10,
@@ -43,7 +47,8 @@ const UpdateFreight = ({ route, navigation }: any) => {
             }
           }}
         />
-      </View>
+      {/* </View> */}
+      </ImageBackground>
     </SafeAreaView>
   );
 };

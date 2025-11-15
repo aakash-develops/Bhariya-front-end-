@@ -47,7 +47,7 @@ const DriverRequest: React.FC<{ navigation: any }> = ({ navigation }) => {
 
   const handleSubmit = async (driverCoords: { latitude: number; longitude: number }) => {
     try {
-      const response = await axios.get<Request[]>("http:/192.168.1.74:8000/ClientDetails");
+      const response = await axios.get<Request[]>("http:/192.168.0.144:8000/ClientDetails");
       const requests = response.data;
       setRequestList(requests);
       calculateDistances(driverCoords, requests);
@@ -99,7 +99,7 @@ const DriverRequest: React.FC<{ navigation: any }> = ({ navigation }) => {
                \nItem: ${item.items}
                \nCustomer suggested price: ${item.price}
                \nWeight: ${item.quantity} ${item.unit}
-               \nOn vehicle: ${item.wheelers} wheelers`}
+               \nOn vehicle: ${item.wheelers} `}
             </ListItem.Subtitle>
             <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 10 }}>
               <Button

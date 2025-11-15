@@ -6,18 +6,20 @@ import {
   TextInput,
   View,
   ScrollView,
+  Button
 } from "react-native";
-import { RadioButton, Button, Text } from "react-native-paper";
+import { RadioButton,  Text } from "react-native-paper";
 import axios from "axios";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { GestureResponderEvent } from 'react-native';
+import { AxiosError } from 'axios';
 
 interface RegistrationProps {
   navigation: any;
 }
 
-const Registration: React.FC<RegistrationProps> = ({ navigation }) => {
+const Registration: React.FC<RegistrationProps> = ({ navigation }:any) => {
     
   return (
     <Formik
@@ -67,40 +69,43 @@ const Registration: React.FC<RegistrationProps> = ({ navigation }) => {
       })}
       
       onSubmit={async (values) => {
-        try {
-          const response = await axios.post(
-            "http:192.168.1.80:8000/users/add",
-            values
-          );
-          if (response.data.roles === "Driver") {
-            navigation.navigate("KYC");
-          } else {
-            navigation.navigate("Company", {
-              paramKey: response.data.phoneNumber,
-            });
+       
+       
+          try {
+            await axios
+              .post("http:192.168.0.144:8000/users/add", values)
+              .then((response) => {
+                console.log(response.data.phoneNumber)
+                let phone=response.data.phoneNumber
+                console.log(phone)
+                if (response.data.roles === "Driver") {
+                  navigation.navigate("KYC");
+                } else {
+                  navigation.navigate("Client",{
+                    paramKey:response.data.phoneNumber
+                  });
+                }
+              })
+              .then(()=>{Alert.alert(JSON.stringify("registered successfully"))});
+          } catch (error:any) {
+            if (error.response) {
+              // The request was made and the server responded with a status code
+              // that falls out of the range of 2xx
+              console.log(error.response.data);
+              console.log(error.response.status);
+              console.log(error.response.headers);
+            } else if (error.request) {
+              // The request was made but no response was received
+              // error.request is an instance of XMLHttpRequest in the browser and an instance of
+              // http.ClientRequest in node.js
+              console.log(error.request);
+            } else {
+              // Something happened in setting up the request that triggered an Error
+              console.log("Error", error.message);
+            }
+            console.log(error.config),
+              Alert.alert(JSON.stringify(error.response.data.message));
           }
-          Alert.alert(JSON.stringify("Registered successfully"));
-        } catch (error: any) {
-          if (error.response) {
-            console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
-          } else if (error.request) {
-            console.log(error.request);
-          } else {
-            console.log("Error", error.message);
-          }
-          console.log(error.config);
-          if (
-            error.response &&
-            error.response.data &&
-            error.response.data.message
-          ) {
-            Alert.alert(JSON.stringify(error.response.data.message));
-          } else {
-            Alert.alert(JSON.stringify("An error occurred."));
-          }
-        }
       }}
     >
       {({
@@ -111,18 +116,18 @@ const Registration: React.FC<RegistrationProps> = ({ navigation }) => {
         errors,
         isValid,
       }) => (
-        <ScrollView style={{ flex: 1, alignContent: "center" }}>
-          <ImageBackground
-            source={require("../assets/truck.jpg")}
+        <ScrollView style={{ flex: 1, alignContent: "center",backgroundColor:"#dd141e" }}>
+          {/* <ImageBackground
+            source={require("../assets/background.jpeg")}
             style={{ height: Dimensions.get("window").height }}
-          >
+          > */}
             <View style={{ padding: 10 }}>
               <View style={{ marginBottom: 5 }}>
                 <Text
                   style={{
                     color: "#fdd017",
-                    fontSize: 22,
-                    padding: 10,
+                    fontSize: 20,
+                    padding: 5,
                     fontWeight: "bold",
                   }}
                 >
@@ -147,7 +152,7 @@ const Registration: React.FC<RegistrationProps> = ({ navigation }) => {
                     />
 
                     {errors.firstName && (
-                      <Text style={{ fontSize: 10, color: "red" }}>
+                      <Text style={{ fontSize: 10, color: "blue" }}>
                         {errors.firstName}
                       </Text>
                     )}
@@ -167,7 +172,7 @@ const Registration: React.FC<RegistrationProps> = ({ navigation }) => {
                       value={values.lastName}
                     />
                     {errors.lastName && (
-                      <Text style={{ fontSize: 10, color: "red" }}>
+                      <Text style={{ fontSize: 10, color: "blue" }}>
                         {errors.lastName}
                       </Text>
                     )}
@@ -187,7 +192,7 @@ const Registration: React.FC<RegistrationProps> = ({ navigation }) => {
                       value={values.address}
                     />
                     {errors.address && (
-                      <Text style={{ fontSize: 10, color: "red" }}>
+                      <Text style={{ fontSize: 10, color: "blue" }}>
                         {errors.address}
                       </Text>
                     )}
@@ -200,13 +205,13 @@ const Registration: React.FC<RegistrationProps> = ({ navigation }) => {
                           style={{
                             fontSize: 16,
                             fontWeight: "bold",
-                            color: "#ff0000",
+                            color: "#fdd017",
                           }}
                         >
                           {" "}
                           Please select gender
                         </Text>
-                        <RadioButton.Item label="Male" value="Male" />
+                        <RadioButton.Item label="Male" value="Male"  />
                         <RadioButton.Item label="Female" value="Female" />
                         <RadioButton.Item label="Others" value="Others" />
                       </View>
@@ -227,7 +232,7 @@ const Registration: React.FC<RegistrationProps> = ({ navigation }) => {
                       value={values.phoneNumber}
                     />
                     {errors.phoneNumber && (
-                      <Text style={{ fontSize: 10, color: "red" }}>
+                      <Text style={{ fontSize: 10, color: "blue" }}>
                         {errors.phoneNumber}
                       </Text>
                     )}
@@ -247,7 +252,7 @@ const Registration: React.FC<RegistrationProps> = ({ navigation }) => {
                       value={values.email}
                     />
                     {errors.email && (
-                      <Text style={{ fontSize: 10, color: "red" }}>
+                      <Text style={{ fontSize: 10, color: "blue" }}>
                         {errors.email}
                       </Text>
                     )}
@@ -267,7 +272,7 @@ const Registration: React.FC<RegistrationProps> = ({ navigation }) => {
                       value={values.userName}
                     />
                     {errors.userName && (
-                      <Text style={{ fontSize: 10, color: "red" }}>
+                      <Text style={{ fontSize: 10, color: "blue" }}>
                         {errors.userName}
                       </Text>
                     )}
@@ -288,7 +293,7 @@ const Registration: React.FC<RegistrationProps> = ({ navigation }) => {
                       secureTextEntry
                     />
                     {errors.password && (
-                      <Text style={{ fontSize: 10, color: "red" }}>
+                      <Text style={{ fontSize: 10, color: "blue" }}>
                         {errors.password}
                       </Text>
                     )}
@@ -309,7 +314,7 @@ const Registration: React.FC<RegistrationProps> = ({ navigation }) => {
                       secureTextEntry
                     />
                     {errors.re_password && (
-                      <Text style={{ fontSize: 10, color: "red" }}>
+                      <Text style={{ fontSize: 10, color: "blue" }}>
                         {errors.re_password}
                       </Text>
                     )}
@@ -322,49 +327,28 @@ const Registration: React.FC<RegistrationProps> = ({ navigation }) => {
                           style={{
                             fontSize: 16,
                             fontWeight: "bold",
-                            color: "#ff0000",
+                            color: "#fdd017",
                           }}
                         >
                           {" "}
                           Please select user
                         </Text>
                         <RadioButton.Item label="Driver" value="Driver" />
-                        <RadioButton.Item label="Client" value="Client" />
+                        <RadioButton.Item label="Cargo" value="Client" />
                       </View>
                     </RadioButton.Group>
                     <Button
-  style={{ borderRadius: 20, backgroundColor: "#FFB000" }}
-  onPress={(event: GestureResponderEvent) => {
-    const syntheticEvent: any = {
-      currentTarget: null,
-      target: null,
-      bubbles: false,
-      cancelable: false,
-      defaultPrevented: false,
-      composed: false,
-      preventDefault: () => {},
-      stopPropagation: () => {},
-      nativeEvent: event.nativeEvent,
-    };
-
-    handleSubmit(syntheticEvent);
-  }}
-  disabled={!isValid}
-  labelStyle={{
-    fontWeight: 900,
-    fontSize: 15,
-    color: "black",
-  }}
->
-
-
-                      SUBMIT
-                    </Button>
+                  
+            title="Submit"
+            color={"#5bc0de"}
+            onPress={() => handleSubmit()}
+            disabled={!isValid}
+          />
                   </View>
                 </View>
               </View>
             </View>
-          </ImageBackground>
+          {/* </ImageBackground> */}
         </ScrollView>
       )}
     </Formik>
