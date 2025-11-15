@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Bhariya",
-    "slug": "Bhariya",
+    "slug": "aakash",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -20,7 +20,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.sarupa.Bhariya"
+      "package": "com.aakash.Bhariya"
     },
     "web": {
       "bundler": "metro",
@@ -38,8 +38,9 @@
         "origin": false
       },
       "eas": {
-        "projectId": "c32f130e-d85b-4842-aedb-c6470b5007a3"
+        "projectId": "68f18ad5-816c-4943-adf0-1776c0494078"
       }
-    }
+    },
+    "owner": "developeraakash12"
   }
 }

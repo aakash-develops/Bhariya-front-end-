@@ -1,13 +1,11 @@
-import React from 'react';
-import { View, Text } from 'react-native';
-import AppNavigator from '../AppNavigator';
+import React from "react";
+import { View } from "react-native";
+import AppNavigator from "../AppNavigator";
 
-const App = () => {
+export default function Index() {
   return (
     <View style={{ flex: 1 }}>
       <AppNavigator />
     </View>
   );
-};
-
-export default App;
+}
