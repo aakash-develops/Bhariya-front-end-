@@ -1,19 +1,23 @@
-import React, { useState } from 'react';
-import { WebView, WebViewMessageEvent } from 'react-native-webview';
-import { Button, View, Text } from 'react-native';
+import React, { useState } from "react";
+import { WebView, WebViewMessageEvent } from "react-native-webview";
+import { Button, View, Text } from "react-native";
+import { GOOGLE_API_KEY } from "@env";
 
-const LocationSelectionScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
-  const [formattedAddress, setFormattedAddress] = useState('');
+const apiKey = GOOGLE_API_KEY;
+
+const LocationSelectionScreen: React.FC<{ navigation: any }> = ({
+  navigation,
+}) => {
+  const [formattedAddress, setFormattedAddress] = useState("");
 
   const handleMessage = (event: WebViewMessageEvent) => {
     const parsedData = JSON.parse(event.nativeEvent.data);
-    console.log('Received Location Data:', parsedData);
+    console.log("Received Location Data:", parsedData);
 
     if (parsedData && parsedData.formatted_address) {
       const { formatted_address } = parsedData;
       setFormattedAddress(formatted_address);
-      // Log the selected place data to the console
-      console.log('Selected Address:', formatted_address);
+      console.log("Selected Address:", formatted_address);
     }
   };
 
@@ -24,21 +28,26 @@ const LocationSelectionScreen: React.FC<{ navigation: any }> = ({ navigation }) 
         <title>Place Autocomplete</title>
         <style>
           .search-container {
-            font-size: 50px; /* Increase font size of the search container */
+            font-size: 50px;
           }
 
           .search-container input {
-            font-size: 50px; /* Increase font size of the input field */
-            width: 50%; /* Increase the width of the input field */
+            font-size: 50px;
+            width: 50%;
           }
 
           .pac-container {
-            font-size: 600%q !important; /* Adjust the font size of the dropdown text */
-            max-height: 400px !important; /* Increase the max height of the dropdown */
-            overflow-y: scroll; /* Enable vertical scrolling for large lists */
+            font-size: 600% !important;
+            max-height: 400px !important;
+            overflow-y: scroll;
           }
         </style>
-        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkd5GSIXoztiBAHCb7-BabHlI9vgqHa_s&libraries=places"></script>
+
+        <script
+          type="text/javascript"
+          src="https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places">
+        </script>
+
       </head>
       <body>
         <div class="search-container">
@@ -59,7 +68,6 @@ const LocationSelectionScreen: React.FC<{ navigation: any }> = ({ navigation }) 
                   return;
               }
 
-              // Post selected place data to React Native WebView
               window.ReactNativeWebView.postMessage(JSON.stringify(place));
           });
         </script>
@@ -70,11 +78,14 @@ const LocationSelectionScreen: React.FC<{ navigation: any }> = ({ navigation }) 
   return (
     <View style={{ flex: 1 }}>
       <WebView
-        originWhitelist={['*']}
+        originWhitelist={["*"]}
         source={{ html: htmlContent }}
         onMessage={handleMessage}
       />
-      <Button title=" Address" onPress={() => console.log('Selected Address:', formattedAddress)} />
+      <Button
+        title=" Address"
+        onPress={() => console.log("Selected Address:", formattedAddress)}
+      />
     </View>
   );
 };

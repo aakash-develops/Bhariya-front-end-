@@ -1,3 +1,4 @@
+import { GOOGLE_API_KEY } from "@env";
 import axios from "axios";
 import * as Location from "expo-location";
 import { Formik } from "formik";
@@ -8,34 +9,28 @@ import {
   Dimensions,
   ImageBackground,
   SafeAreaView,
-  ScrollView,
   Text,
   TextInput,
   View,
 } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import RNPickerSelect from "react-native-picker-select";
-import * as Yup from "yup";
-import { useFonts } from 'expo-font';
 
-
-
-const Client: React.FC = ({navigation,route}:any) => {
+const Client: React.FC = ({ navigation, route }: any) => {
   const [Item, setItem] = useState<string | null>(null);
   const [Unit, setUnit] = useState<string | null>(null);
   const [Trip, setTrip] = useState<string | null>(null);
   const [vehicleType, setVehicleType] = useState<string | null>(null);
-  const[phoneNum,setPhoneNum]=useState<string>("");
-  const {phone}=route.params
-  console.log(phone)
+  const [phoneNum, setPhoneNum] = useState<string>("");
+  const { phone } = route.params;
+  console.log(phone);
   const [pickUp, setPickup] = useState<string>();
   const [dropOff, setDropOff] = useState<string>();
-  const [latitude, setLatitude] = useState<number>(0)
+  const [latitude, setLatitude] = useState<number>(0);
   const [longitude, setLongitude] = useState<number>(0);
 
   useEffect(() => {
     _getLocation();
-
   }, []);
 
   const _getLocation = async () => {
@@ -48,14 +43,11 @@ const Client: React.FC = ({navigation,route}:any) => {
       let location = await Location.getCurrentPositionAsync({});
       setLatitude(location.coords.latitude);
       setLongitude(location.coords.longitude);
-      
-      
     } catch (err) {
       console.warn(err);
     }
   };
 
- 
   return (
     <Formik
       initialValues={{
@@ -67,12 +59,12 @@ const Client: React.FC = ({navigation,route}:any) => {
         price: "",
         wheelers: vehicleType || "",
         update: false,
-        phoneNumber:"",
+        phoneNumber: "",
         trip: Trip || "",
         accept: "",
         driverphone: "",
-        latitude:latitude !== undefined ? latitude : 0,
-        longitude:longitude !== undefined ? longitude : 0,
+        latitude: latitude !== undefined ? latitude : 0,
+        longitude: longitude !== undefined ? longitude : 0,
         company: "",
       }}
       // validationSchema={Yup.object({
@@ -86,13 +78,14 @@ const Client: React.FC = ({navigation,route}:any) => {
         try {
           await axios
             .post("http:192.168.0.144:8000/ClientRequest", values)
-            .then((response) => {()=>
-              console.log(response)
-             navigation.pop(1)
-              
+            .then((response) => {
+              () => console.log(response);
+              navigation.pop(1);
             })
-            .then(()=>{Alert.alert(JSON.stringify("registered successfully"))});
-        } catch (error:any) {
+            .then(() => {
+              Alert.alert(JSON.stringify("registered successfully"));
+            });
+        } catch (error: any) {
           if (error.response) {
             // The request was made and the server responded with a status code
             // that falls out of the range of 2xx
@@ -113,7 +106,14 @@ const Client: React.FC = ({navigation,route}:any) => {
         }
       }}
     >
-      {({ handleChange, handleBlur, handleSubmit, values,isValid,errors }) => (
+      {({
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        values,
+        isValid,
+        errors,
+      }) => (
         <SafeAreaView>
           <ImageBackground
             source={require("../assets/background.jpeg")}
@@ -137,15 +137,13 @@ const Client: React.FC = ({navigation,route}:any) => {
                 onPress={(data) => {
                   console.log(data.description);
                   setPickup(data.description);
-                setPhoneNum(phone)
+                  setPhoneNum(phone);
                   {
                     values.pickUp = data.description;
-                   
                   }
-                 
                 }}
                 query={{
-                  key: "AIzaSyBVkhlAZwynSaPK0ujH91q5bk3O881OyKA",
+                  key: `${GOOGLE_API_KEY}`,
                   language: "en",
                 }}
                 styles={{
@@ -186,7 +184,6 @@ const Client: React.FC = ({navigation,route}:any) => {
                   },
                 }}
               />
-            
 
               <GooglePlacesAutocomplete
                 placeholder={"drop off location"}
@@ -197,10 +194,9 @@ const Client: React.FC = ({navigation,route}:any) => {
                   {
                     values.dropOff = data.description;
                   }
-                  
                 }}
                 query={{
-                  key: "AIzaSyBVkhlAZwynSaPK0ujH91q5bk3O881OyKA",
+                  key: `${GOOGLE_API_KEY}`,
                   language: "en",
                 }}
                 styles={{
@@ -247,13 +243,18 @@ const Client: React.FC = ({navigation,route}:any) => {
                   },
                 }}
               />
-             
 
               <View style={{ flex: 10, gap: 10 }}>
-              <Text style={{display:"none"}}>{values.latitude=latitude}</Text>
-              <Text style={{display:"none"}}>{values.longitude=longitude}</Text>
-             
-              <Text style={{display:"none"}}>{values.phoneNumber=phoneNum}</Text>
+                <Text style={{ display: "none" }}>
+                  {(values.latitude = latitude)}
+                </Text>
+                <Text style={{ display: "none" }}>
+                  {(values.longitude = longitude)}
+                </Text>
+
+                <Text style={{ display: "none" }}>
+                  {(values.phoneNumber = phoneNum)}
+                </Text>
 
                 <RNPickerSelect
                   style={{
@@ -264,10 +265,9 @@ const Client: React.FC = ({navigation,route}:any) => {
                       width: 320,
                     },
                   }}
-                  placeholder={{  label: "Choose Item",  color:"0,0,0,0.6"}}
+                  placeholder={{ label: "Choose Item", color: "0,0,0,0.6" }}
                   value={values.items}
-                  
-                  onValueChange={(value) =>  handleChange('items')(value)}
+                  onValueChange={(value) => handleChange("items")(value)}
                   items={[
                     { label: "Cement", value: "Cement" },
                     { label: "Tmt/Chhad", value: "Tmt/Chhad" },
@@ -295,16 +295,20 @@ const Client: React.FC = ({navigation,route}:any) => {
                     { label: "Others", value: "Others" },
                   ]}
                 />
-                
-                
+
                 <TextInput
-                  style={{ backgroundColor: "#94e9de", height: 44,textAlign: 'center',fontSize:15 }}
-                  placeholder ="Quantity"
+                  style={{
+                    backgroundColor: "#94e9de",
+                    height: 44,
+                    textAlign: "center",
+                    fontSize: 15,
+                  }}
+                  placeholder="Quantity"
                   onChangeText={handleChange("quantity")}
                   onBlur={handleBlur("quantity")}
                   value={values.quantity}
                 />
-                 
+
                 <RNPickerSelect
                   style={{
                     inputAndroid: {
@@ -314,10 +318,9 @@ const Client: React.FC = ({navigation,route}:any) => {
                       borderRadius: 5,
                     },
                   }}
-                  placeholder={{ label: "Unit",  }}
+                  placeholder={{ label: "Unit" }}
                   value={values.unit}
-                  
-                  onValueChange={(value) =>  handleChange('unit')(value)}
+                  onValueChange={(value) => handleChange("unit")(value)}
                   items={[
                     { label: "Kg", value: "Kg" },
                     { label: "Quintal", value: "Quintal" },
@@ -327,7 +330,12 @@ const Client: React.FC = ({navigation,route}:any) => {
                   ]}
                 />
                 <TextInput
-                  style={{ backgroundColor: "#94e9de", height: 44,textAlign: 'center',fontSize:15 }}
+                  style={{
+                    backgroundColor: "#94e9de",
+                    height: 44,
+                    textAlign: "center",
+                    fontSize: 15,
+                  }}
                   placeholder="Company or your name"
                   onChangeText={handleChange("company")}
                   onBlur={handleBlur("company")}
@@ -335,7 +343,12 @@ const Client: React.FC = ({navigation,route}:any) => {
                 />
 
                 <TextInput
-                  style={{ backgroundColor: "#94e9de", height: 44,textAlign: 'center',fontSize:15 }}
+                  style={{
+                    backgroundColor: "#94e9de",
+                    height: 44,
+                    textAlign: "center",
+                    fontSize: 15,
+                  }}
                   placeholder="Freight"
                   keyboardType="numeric"
                   onChangeText={handleChange("price")}
@@ -351,12 +364,9 @@ const Client: React.FC = ({navigation,route}:any) => {
                       borderRadius: 5,
                     },
                   }}
-                  placeholder={{ label: "Choose Vehicle", }}
+                  placeholder={{ label: "Choose Vehicle" }}
                   value={values.wheelers}
-                  
-                  onValueChange={(value) =>  handleChange('wheelers')(value)}
-                  
-                
+                  onValueChange={(value) => handleChange("wheelers")(value)}
                   items={[
                     { label: "4 wheeler", value: "4 wheeler" },
                     { label: "6 wheeler", value: "6 wheeler" },
@@ -368,10 +378,9 @@ const Client: React.FC = ({navigation,route}:any) => {
                     { label: "22 wheeler", value: "22 wheeler" },
                   ]}
                 />
-                
+
                 <RNPickerSelect
                   style={{
-                  
                     inputAndroid: {
                       backgroundColor: "#94e9de",
                       padding: 10,
@@ -379,41 +388,36 @@ const Client: React.FC = ({navigation,route}:any) => {
                       borderRadius: 5,
                     },
                   }}
-                  placeholder={{ label: "Delivery",  }}
+                  placeholder={{ label: "Delivery" }}
                   value={values.trip}
-                  
-                  onValueChange={(value) =>  handleChange('trip')(value)}
+                  onValueChange={(value) => handleChange("trip")(value)}
                   items={[
                     { label: "Local", value: "local" },
                     { label: "Express", value: "full" },
                   ]}
-                
                 />
-               
 
                 <Button
-                 color={"#5bc0de"}
-  title="Submit"
-  onPress={(event) => {
-    const syntheticEvent: any = {
-        currentTarget: null,
-        target: null,
-        bubbles: false,
-        cancelable: false,
-        defaultPrevented: false,
-        composed: false,
-        preventDefault: () => {},
-        stopPropagation: () => {},
-        nativeEvent: event.nativeEvent,
-    };
-    
-    handleSubmit(syntheticEvent);
-  }}
-  disabled={!isValid}
-/>
+                  color={"#5bc0de"}
+                  title="Submit"
+                  onPress={(event) => {
+                    const syntheticEvent: any = {
+                      currentTarget: null,
+                      target: null,
+                      bubbles: false,
+                      cancelable: false,
+                      defaultPrevented: false,
+                      composed: false,
+                      preventDefault: () => {},
+                      stopPropagation: () => {},
+                      nativeEvent: event.nativeEvent,
+                    };
 
+                    handleSubmit(syntheticEvent);
+                  }}
+                  disabled={!isValid}
+                />
               </View>
-              
             </View>
           </ImageBackground>
         </SafeAreaView>
