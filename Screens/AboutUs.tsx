@@ -75,10 +75,10 @@ const AboutUs: React.FC = () => {
           Contact Us
         </Text>
         <Text style={{ fontSize: 16, color: "#fff" }}>
-          Chairman: <Text style={{ fontWeight: "bold" }}>Mr. Kamal Phuyal</Text>
+          Chairman: <Text style={{ fontWeight: "bold" }}>To be YET</Text>
         </Text>
         <Text style={{ fontSize: 16, color: "#fff" }}>
-          {`Contact No: +9779767220450 \n                          +9779807128513\nGmail:teambhariya@gmail.com`}
+          {`Contact No: +999999999 \n                          +979999999999\nGmail:teambhariya@gmail.com`}
         </Text>
       </View>
     </ScrollView>

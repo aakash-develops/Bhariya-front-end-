@@ -33,9 +33,9 @@ const Stack = createStackNavigator();
 const AppNavigator = () => {
   return (
     <Stack.Navigator initialRouteName="Welcome">
-      <Stack.Screen name="Welcome" component={Welcome} />
-      <Stack.Screen name="Userform" component={UserForm} />
-      <Stack.Screen name="Registration" component={Registration} />
+      {/* <Stack.Screen name="Welcome" component={Welcome} /> */}
+      {/* <Stack.Screen name="Userform" component={UserForm} /> */}
+      {/* <Stack.Screen name="Registration" component={Registration} /> */}
       {/* <Stack.Screen name="AboutUs" component={AboutUs} /> */}
       {/* <Stack.Screen name="payment" component={Payment} /> */}
 
@@ -50,9 +50,12 @@ const AppNavigator = () => {
       {/* <Stack.Screen name="payment page" component={Payment} /> */}
       {/* <Stack.Screen name="khaltiPay" component={MyKhalti} /> */}
       {/* <Stack.Screen name="ForgotPassword" component={ForgotPassword} /> */}
-      {/* <Stack.Screen name="ForgotPasswordOtpVerify" component={ForgotPasswordOtpVerify} /> */}
-      <Stack.Screen name="Homepage" component={HomePage} />
-      <Stack.Screen name="Homepage1" component={HomePage1} />
+      <Stack.Screen
+        name="ForgotPasswordOtpVerify"
+        component={ForgotPasswordOtpVerify}
+      />
+      {/* <Stack.Screen name="Homepage" component={HomePage} /> */}
+      {/* <Stack.Screen name="Homepage1" component={HomePage1} /> */}
       {/* <Stack.Screen name="KYC" component={Kyc} /> */}
       {/* <Stack.Screen name="OngoinDeals" component={OngoingDeals} /> */}
 
